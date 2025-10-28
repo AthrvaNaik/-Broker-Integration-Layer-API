@@ -31,24 +31,24 @@
 
 ## Design Decisions
 
-- Used an **adapter pattern** so each broker is implemented as a separate, reusable module.
-- Created a **normalizer service** to unify trade data from many brokers into a consistent format for Journalyst.
-- Employed a **token management system** that securely stores and refreshes tokens for each user, minimizing manual intervention for long-running sync jobs.
-- All business logic (sync, normalize, token) is split from routing for maintainability and easier testing.
-
+- Used an **adapter pattern** so each broker is implemented as a separate, reusable module.  
+- Created a **normalizer service** to combine trade data from various brokers into a consistent format for Journalyst.  
+- Used a **token management system** that safely stores and refreshes tokens for each user, reducing manual work for long-running sync jobs.  
+- All business logic (sync, normalize, token) is separated from routing to improve maintainability and make testing easier.
+  
 ## How to Add a New Broker
 
-1. Create a new adapter by extending the base `BrokerAdapter` class and implementing broker-specific data fetching and token management logic.
-2. Add a normalization function for the broker's trade data to the `NormalizerService`.
-3. Register the broker in the supported brokers list and update relevant services with your new adapter.
-4. New endpoints or integrations will work automatically if you send the broker’s name in API requests.
-
+ 1. Build a new adapter by adding broker-specific data fetching and token management logic to the base `BrokerAdapter` class.
+ 2. Give the `NormalizerService` a normalization function for the broker's trade data.
+ 3. Add the broker to the list of approved brokers and use your new adapter to update pertinent services.
+ 4. If you include the broker's name in API requests, new endpoints or integrations will function automatically.
+    
 ## Assumptions / Simplifications
 
-- Tokens and user state are handled in-memory for demonstration—move to persistent storage for production.
-- Error handling is robust at API level, but custom business logic exceptions are kept minimal.
-- Mock data is used for brokers if API keys are not set, enabling development/testing without real trades.
-- No caching or retry for failed remote requests.
-- Only core endpoints and basic request validation are implemented for clarity.
+ - For demonstration, tokens and user state are managed in-memory; for production, they are moved to persistent storage.
+ - At the API level, error handling is strong, but there aren't many exceptions for custom business logic.
+ - If API keys are not set, brokers use mock data, which allows for development and testing without actual trades.
+ - There is no caching or retrying for unsuccessful remote requests.
+ - For clarity, only essential endpoints and simple request validation are used.
 
 ---

@@ -1,0 +1,33 @@
+Connect User to Broker
+URL: http://localhost:3000/api/user/connect
+Method: POST
+Body:
+{
+  "userId": "user123",
+  "name": "Test User",
+  "email": "test@user.com",
+  "brokerName": "zerodha",
+  "accessToken": "abc123-access-token",
+  "refreshToken": "abc123-refresh-token",
+  "tokenExpiry": "2025-10-30T12:00:00Z"
+}
+
+Sync Trades
+URL: http://localhost:3000/api/sync
+Method: POST
+Body:
+json
+{
+  "userId": "user123",
+  "brokerName": "zerodha"
+}
+
+Get User Trades
+URL: http://localhost:3000/api/trades/user123?brokerName=zerodha&symbol=TCS&startDate=2025-10-01&endDate=2025-10-27
+Method: GET
+Body: None
+
+Get User Details
+URL: http://localhost:3000/api/user/user123
+Method: GET
+Body: None
